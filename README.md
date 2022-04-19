@@ -19,15 +19,13 @@
 
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
-Time Estimates
-For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
 
-Name of feature: ________________________________
+Name of feature: City Explorer
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 5 hours
 
-Start time: _____
+Start time: 130pm
 
-Finish time: _____
+Finish time: 950
 
-Actual time needed to complete: _____
+Actual time needed to complete: 8 and a half hours.

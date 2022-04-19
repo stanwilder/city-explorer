@@ -4,6 +4,7 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Card from 'react-bootstrap/Card';
 
 
 class App extends React.Component {
@@ -22,23 +23,28 @@ class App extends React.Component {
     
     let city = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${userCity}&format=json`;
     console.log(city);
-
+    
+    
     let locateData = await axios.get(city)
-    let lon = locateData.data[0].lon
-    let lat = locateData.data[0].lat
+    let lon = parseInt(locateData.data[0].lon)
+    let lat = parseInt(locateData.data[0].lat)
     let displayName = locateData.data[0].display_name
     console.log(lat,lon,displayName)
+    let locator = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}¢er=${this.state.lat},${this.state.lon}&zoom=10` 
     this.setState({
       lon: lon,
       lat: lat,
-      displayName: displayName
+      displayName: displayName,
+      locator: locator 
       
-     
       
     })
-    console.log(this.state)
+    // console.log(this.state)
+    // let maps = () => {
+    //   let locator = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}¢er=${this.props.lat},${this.props.long}&zoom=10`;
+    // }
   }; 
-    
+  
 
   
   render() {
@@ -54,7 +60,14 @@ class App extends React.Component {
         <Button variant="primary" type="submit">
           Explore!
         </Button>
+        {/* {this.maps} */}
+        <Card>
+        <Card.Img src={this.state.locator}/>
+
+        </Card>
       </Form>
+
+
 
     </>
 
