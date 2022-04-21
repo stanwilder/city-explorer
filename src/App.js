@@ -30,8 +30,14 @@ class App extends React.Component {
     let lat = parseInt(locateData.data[0].lat)
     let displayName = locateData.data[0].display_name
     console.log(lat,lon,displayName)
-    let locator = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}¢er=${this.state.lat},${this.state.lon}&zoom=10` 
+    let locator = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${lat},${lon}&zoom=11` 
+    
     this.setState({
+
+    
+
+
+
       lon: lon,
       lat: lat,
       displayName: displayName,
@@ -41,8 +47,7 @@ class App extends React.Component {
     })
     // console.log(this.state)
     // let maps = () => {
-    //   let locator = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}¢er=${this.props.lat},${this.props.long}&zoom=10`;
-    // }
+    
   }; 
   
 
@@ -55,12 +60,15 @@ class App extends React.Component {
       <Form onSubmit={this.handleSubmit}>
         <Form.Group className="city" controlId="city">
           <Form.Label>Pick a city!</Form.Label>
-          <Form.Control type="text" placeholder="Enter City" />
+          <Form.Control 
+          type="text" 
+          placeholder="Enter City" 
+          />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button type="submit">
           Explore!
         </Button>
-        {/* {this.maps} */}
+        
         <Card>
         <Card.Img src={this.state.locator}/>
 
@@ -79,3 +87,16 @@ class App extends React.Component {
 
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
