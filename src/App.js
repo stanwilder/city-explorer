@@ -12,6 +12,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       cityData: [],
+      error: false,
+      errorMessage: ''
       // lon: 0,
       // lat: 0
     }
@@ -19,71 +21,87 @@ class App extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    let userCity = e.target.city.value
-    
-    let city = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${userCity}&format=json`;
-    console.log(city);
-    
-    
-    let locateData = await axios.get(city)
-    let lon = parseInt(locateData.data[0].lon)
-    let lat = parseInt(locateData.data[0].lat)
-    let displayName = locateData.data[0].display_name
-    console.log(lat,lon,displayName)
-    let locator = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${lat},${lon}&zoom=10` 
-    
-    this.setState({
+    try {
 
-    
+      let userCity = e.target.city.value
+
+      let city = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${userCity}&format=json`;
+      console.log(city);
 
 
+      let locateData = await axios.get(city)
+      let lon = parseInt(locateData.data[0].lon)
+      let lat = parseInt(locateData.data[0].lat)
+      let displayName = locateData.data[0].display_name
+      console.log(lat, lon, displayName)
+      let locator = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${lat},${lon}&zoom=10`
 
-      lon: lon,
-      lat: lat,
-      displayName: displayName,
-      locator: locator 
+
+      this.setState({
+        lon: lon,
+        lat: lat,
+        displayName: displayName,
+        locator: locator,
+
+      }
       
-      
-    })
-    // console.log(this.state)
-    // let maps = () => {
-    
-  }; 
-  
+      )
+    } catch (error) {
+      console.log('error: ', error.response);
+      this.setState({
+        error: true,
+        errorMessage: `An Error has occured: ${error.response.status}` 
+      })
+    }
 
-  
+  };
+
+
+
   render() {
     return (
       <>
-      <p>{this.state.displayName}</p>
-      <p>{this.state.lat}</p>
-      <p>{this.state.lon}</p>
+        <p>{this.state.displayName}</p>
+        <p>{this.state.lat}</p>
+        <p>{this.state.lon}</p>
 
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Group className="city" controlId="city">
-          <Form.Label></Form.Label>
-          <Form.Control 
-          type="text" 
-          placeholder="Enter City" 
-          />
-        </Form.Group>
-        <Button type="submit">
-          Explore!
-        </Button>
-      </Form>
-        
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group className="city" controlId="city">
+            <Form.Label></Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter City"
+            />
+          </Form.Group>
+          <Button type="submit">
+            Explore!
+          </Button>
+        </Form>
+        {
+          this.state.error
+          ?
+          <p>{this.state.errorMessage}</p>
+          :
+          <ul>
+            
+          </ul>
+        }
+
         <Card>
-        <Card.Img src={this.state.locator}/>
+          <Card.Img src={this.state.locator} />
+
+        </Card>
+
+        <Card>
 
         </Card>
 
 
+      </>
 
-    </>
 
-
-)
-}
+    )
+  }
 }
 
 
