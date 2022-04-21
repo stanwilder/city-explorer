@@ -30,7 +30,7 @@ class App extends React.Component {
     let lat = parseInt(locateData.data[0].lat)
     let displayName = locateData.data[0].display_name
     console.log(lat,lon,displayName)
-    let locator = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${lat},${lon}&zoom=11` 
+    let locator = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${lat},${lon}&zoom=10` 
     
     this.setState({
 
@@ -56,10 +56,12 @@ class App extends React.Component {
     return (
       <>
       <p>{this.state.displayName}</p>
+      <p>{this.state.lat}</p>
+      <p>{this.state.lon}</p>
 
       <Form onSubmit={this.handleSubmit}>
         <Form.Group className="city" controlId="city">
-          <Form.Label>Pick a city!</Form.Label>
+          <Form.Label></Form.Label>
           <Form.Control 
           type="text" 
           placeholder="Enter City" 
@@ -68,12 +70,12 @@ class App extends React.Component {
         <Button type="submit">
           Explore!
         </Button>
+      </Form>
         
         <Card>
         <Card.Img src={this.state.locator}/>
 
         </Card>
-      </Form>
 
 
 
