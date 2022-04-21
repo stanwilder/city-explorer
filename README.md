@@ -29,3 +29,5 @@ Start time: 130pm
 Finish time: 950
 
 Actual time needed to complete: 8 and a half hours.
+
+![Lab 06 RoughDraft WRRC](src/WRRC.jpg)
